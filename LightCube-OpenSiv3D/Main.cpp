@@ -3,22 +3,36 @@
 
 void Main()
 {
-	// 背景を水色にする
+	// 初期化
+	Window::SetStyle(WindowStyle::Sizable);
+	Scene::SetScaleMode(ScaleMode::ResizeFill);
+
+	// 背景を白色にする
 	Scene::SetBackground(ColorF(1.0, 1.0, 1.0));
 
-	// 大きさ 60 のフォントを用意
-	const Font font(60);
+	// フォントを用意
+	const Font font60(60);
+	const Font font40(40);
+	const Font font20(20);
 
 	// 猫のテクスチャを用意
 	const Texture cat(Emoji(U"🐈"));
+
+	//LightCube Logo
+
+	const Texture LightCubeLogo(U"logo_b.png");
 
 	// 猫の座標
 	Vec2 catPos(640, 450);
 
 	while (System::Update())
 	{
+
+		Rect(0,0, Scene::Width(), 60).draw(Palette::Deepskyblue);
+		LightCubeLogo.scaled(0.33).draw(10, 10);
+
 		// テキストを画面の中心に描く
-		font(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
+		font60(U"Hello, Siv3D!🐣").drawAt(Scene::Center(), Palette::Black);
 
 		// 大きさをアニメーションさせて猫を表示する
 		cat.resized(100 + Periodic::Sine0_1(1s) * 20).drawAt(catPos);
